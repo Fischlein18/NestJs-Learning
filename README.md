@@ -10,7 +10,6 @@ Its purpose:
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [NestJs](https://nestjs.com/)
 
 
@@ -37,7 +36,7 @@ This section should list any major frameworks that you built your project using.
   Hello World!
   ```
 
-2. in browser: [https://localhost:3000/<string>](https://localhost:3000/<string>). "Hello <string>!" should be displayed.
+2. in browser: [https://localhost:3000/Elsa](https://localhost:3000/Elsa). "Hello Elsa!" should be displayed.
   ```sh
-  Hello <string>!
+  Hello Elsa!
   ```
