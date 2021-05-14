@@ -6,6 +6,7 @@ This is an example 'Bookstore' project.
 Its purpose:
 * start an initial nestjs project
 * create entity "Books", enable CRUD 
+* apply validation pipe ([class-validator](https://github.com/typestack/class-validator#custom-validation-decorators))
 * connect to Postgres database
 
 
