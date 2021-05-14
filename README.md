@@ -29,6 +29,11 @@ Its purpose:
   npm install -g @nestjs/cli
   ```
 
+* for the validation pipe
+  ```sh
+  npm install class-validator class-transformer --save
+ ```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
