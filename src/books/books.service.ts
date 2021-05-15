@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Book } from './book.model';
 import { v1 as uuid} from 'uuid';
 import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
 
 @Injectable()
 export class BooksService {
@@ -46,6 +47,18 @@ export class BooksService {
         }
 
         this.books.push(book)
+        return book
+    }
+
+    updateBook(id: string, updateBookDto: UpdateBookDto): Book {
+        const book = this.getBookById(id)
+        const {description, author, genre, stock} = updateBookDto
+
+        if (description) book.description = description
+        if (author) book.author = author
+        if (genre) book.genre = genre
+        if (stock) book.stock = stock
+
         return book
     }
 

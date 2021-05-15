@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Book } from './book.model';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
 
 @Controller('books')
 export class BooksController {
@@ -35,6 +36,15 @@ export class BooksController {
         @Body() createBookDto: CreateBookDto
     ): Book {
         return this.booksService.createBook(createBookDto)
+    }
+
+    @Patch('/:id')
+    @UsePipes(ValidationPipe)
+    updateBook(
+        @Param('id') id: string,
+        @Body() updateBookDto: UpdateBookDto
+    ): Book {
+        return this.booksService.updateBook(id, updateBookDto)
     }
 
     @Delete('/:id')
