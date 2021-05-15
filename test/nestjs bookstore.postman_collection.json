@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "af038612-4782-4abd-96ca-a356d737e9ef",
+		"name": "nestjs bookstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books/12b99190-b529-11eb-8a0c-41f410fe7a80",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"12b99190-b529-11eb-8a0c-41f410fe7a80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "book 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "descr 1",
+							"type": "text"
+						},
+						{
+							"key": "author",
+							"value": "author one",
+							"type": "text"
+						},
+						{
+							"key": "genre",
+							"value": "genre 1",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "15",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books/36f77e70-b52c-11eb-a83a-0db15d43fed3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"36f77e70-b52c-11eb-a83a-0db15d43fed3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update book by Id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"descr 2\",\r\n    \"author\": \"author TWO\",\r\n    \"genre\": \"genre 2\",\r\n    \"stock\": \"222\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/books/12d87520-b532-11eb-9072-d35b5ee231b7",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"12d87520-b532-11eb-9072-d35b5ee231b7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
