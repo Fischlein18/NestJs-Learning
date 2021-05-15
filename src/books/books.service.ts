@@ -11,6 +11,10 @@ export class BooksService {
         return this.books
     }
 
+    getBookById(id: string): Book {
+        return this.books.find( book => book.id === id )
+    }
+
     // createBook(
     //     title: string,
     //     description: string,
@@ -43,5 +47,9 @@ export class BooksService {
 
         this.books.push(book)
         return book
+    }
+
+    deleteBook(id: string): void {
+        this.books = this.books.filter( book => book.id !== id )
     }
 }
