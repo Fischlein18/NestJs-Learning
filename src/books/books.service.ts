@@ -3,6 +3,7 @@ import { Book } from './book.model';
 import { v1 as uuid} from 'uuid';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { GetBooksFilterDto } from './dto/get-books-filter.dto';
 
 @Injectable()
 export class BooksService {
@@ -10,6 +11,27 @@ export class BooksService {
 
     getAllBooks(): Book[] {
         return this.books
+    }
+
+    getBooksWithFilters(filterDto: GetBooksFilterDto): Book[] {
+        const {title, author, genre, searchTerm} = filterDto
+
+        let books = this.getAllBooks()
+
+        if (title) books = books.filter( book => book.title.toLowerCase() === title.toLowerCase())
+        if (author) books = books.filter( book => book.author.toLowerCase() === author.toLowerCase())
+        if (genre) books = books.filter( book => book.genre.toLowerCase() === genre.toLowerCase())
+
+        if (searchTerm) {
+            let search = searchTerm.toLowerCase()
+            books = books.filter( book => 
+                book.title.toLowerCase().includes( search ) || 
+                book.description.toLowerCase().includes( search ) || 
+                book.author.toLowerCase().includes( search ) 
+            )
+        }
+
+        return books
     }
 
     getBookById(id: string): Book {

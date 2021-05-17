@@ -1,5 +1,6 @@
 import { Transform, Type } from 'class-transformer'
-import { IsOptional, IsNotEmpty, IsInt, Matches } from 'class-validator'
+import { IsOptional, IsNotEmpty, IsInt, Matches, IsEnum } from 'class-validator'
+import { BookGenre } from '../book-genre.enum'
 
 export class CreateBookDto {
     @IsNotEmpty()
@@ -24,7 +25,12 @@ export class CreateBookDto {
     author: string
 
     @IsOptional()
-    genre: string
+    @IsEnum(BookGenre, {
+        message:
+          `"$value" is an invalid genre. ` +
+          `The allowed values are: ${Object.keys(BookGenre)}`,
+      })
+    genre: BookGenre
 
     @IsOptional()
     @Type(() => Number)  //by default string, must explicitly cast the Number type

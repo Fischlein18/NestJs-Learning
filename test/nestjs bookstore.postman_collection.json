@@ -24,6 +24,34 @@
 			"response": []
 		},
 		{
+			"name": "Get books with filters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books?genre=Drama&searchTerm=author",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "Drama"
+						},
+						{
+							"key": "searchTerm",
+							"value": "author"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get book by Id",
 			"request": {
 				"method": "GET",
@@ -52,27 +80,27 @@
 					"urlencoded": [
 						{
 							"key": "title",
-							"value": "book 1",
+							"value": "Little Woman",
 							"type": "text"
 						},
 						{
 							"key": "description",
-							"value": "descr 1",
+							"value": "Young woman, 19th century, England, countryside",
 							"type": "text"
 						},
 						{
 							"key": "author",
-							"value": "author one",
+							"value": "Jane Austin",
 							"type": "text"
 						},
 						{
 							"key": "genre",
-							"value": "genre 1",
+							"value": "Drama",
 							"type": "text"
 						},
 						{
 							"key": "stock",
-							"value": "15",
+							"value": "43",
 							"type": "text"
 						}
 					],
@@ -121,7 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"description\": \"descr 2\",\r\n    \"author\": \"author TWO\",\r\n    \"genre\": \"genre 2\",\r\n    \"stock\": \"222\"\r\n}",
+					"raw": "{\r\n    \"description\": \"descr 2\",\r\n    \"author\": \"author TWO\",\r\n    \"genre\": \"Romance\",\r\n    \"stock\": \"222\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -129,14 +157,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/books/12d87520-b532-11eb-9072-d35b5ee231b7",
+					"raw": "localhost:3000/books/af75ee60-b6a6-11eb-a41a-1343053fdfef",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"books",
-						"12d87520-b532-11eb-9072-d35b5ee231b7"
+						"af75ee60-b6a6-11eb-a41a-1343053fdfef"
 					]
 				}
 			},
