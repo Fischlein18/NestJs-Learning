@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Book } from './book.model';
 import { v1 as uuid} from 'uuid';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -35,7 +35,11 @@ export class BooksService {
     }
 
     getBookById(id: string): Book {
-        return this.books.find( book => book.id === id )
+        const found = this.books.find( book => book.id === id )
+
+        if (!found) throw new NotFoundException(`Task with ID "${id}" not found.`)
+        
+        return found
     }
 
     // createBook(
@@ -85,6 +89,8 @@ export class BooksService {
     }
 
     deleteBook(id: string): void {
-        this.books = this.books.filter( book => book.id !== id )
+        const found = this.getBookById(id)
+
+        this.books = this.books.filter( book => book.id !== found.id )
     }
 }
