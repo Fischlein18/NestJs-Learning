@@ -8,7 +8,8 @@ import { typeOrmConfig } from './config/typeorm.config';
 @Module({
   imports: [
       TypeOrmModule.forRoot(typeOrmConfig),
-      BooksModule],
+      BooksModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

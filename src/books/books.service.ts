@@ -1,83 +1,37 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Book } from './book.model';
-import { v1 as uuid} from 'uuid';
+import { Book } from './book.entity';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { GetBooksFilterDto } from './dto/get-books-filter.dto';
+import { BookRepository } from './book.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BooksService {
-    private books: Book[] = []
+    constructor(
+        @InjectRepository(BookRepository)
+        private bookRepository: BookRepository
+    ) {}
 
-    getAllBooks(): Book[] {
-        return this.books
+    async getBooks(filterDto: GetBooksFilterDto): Promise<Book[]> {
+       return await this.bookRepository.getBooks(filterDto)
     }
 
-    getBooksWithFilters(filterDto: GetBooksFilterDto): Book[] {
-        const {title, author, genre, searchTerm} = filterDto
-
-        let books = this.getAllBooks()
-
-        if (title) books = books.filter( book => book.title.toLowerCase() === title.toLowerCase())
-        if (author) books = books.filter( book => book.author.toLowerCase() === author.toLowerCase())
-        if (genre) books = books.filter( book => book.genre.toLowerCase() === genre.toLowerCase())
-
-        if (searchTerm) {
-            let search = searchTerm.toLowerCase()
-            books = books.filter( book => 
-                book.title.toLowerCase().includes( search ) || 
-                book.description.toLowerCase().includes( search ) || 
-                book.author.toLowerCase().includes( search ) 
-            )
-        }
-
-        return books
-    }
-
-    getBookById(id: string): Book {
-        const found = this.books.find( book => book.id === id )
+    async getBookById(id: number): Promise<Book> {
+        const found = await this.bookRepository.findOne(id)
 
         if (!found) throw new NotFoundException(`Task with ID "${id}" not found.`)
         
         return found
     }
 
-    // createBook(
-    //     title: string,
-    //     description: string,
-    //     author: string,
-    //     genre: string,
-    //     stock: number
-    //     ) {
-    //     const book:Book = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         author,
-    //         genre,
-    //         stock
-    //     }
 
-    //     this.books.push(book)
-    //     return book
-    // }
-    createBook(createBookDto: CreateBookDto) {
-        const {title, description, author, genre, stock} = createBookDto
-        const book:Book = {
-            id: uuid(),
-            title,
-            description,
-            author,
-            genre,
-            stock
-        }
-
-        this.books.push(book)
-        return book
+    createBook(createBookDto: CreateBookDto): Promise<Book> {
+        return this.bookRepository.createBook(createBookDto)
     }
 
-    updateBook(id: string, updateBookDto: UpdateBookDto): Book {
-        const book = this.getBookById(id)
+    async updateBook(id: number, updateBookDto: UpdateBookDto): Promise<Book> {
+        const book = await this.getBookById(id)
         const {description, author, genre, stock} = updateBookDto
 
         if (description) book.description = description
@@ -85,12 +39,14 @@ export class BooksService {
         if (genre) book.genre = genre
         if (stock) book.stock = stock
 
+        await book.save()
         return book
     }
 
-    deleteBook(id: string): void {
-        const found = this.getBookById(id)
-
-        this.books = this.books.filter( book => book.id !== found.id )
+    async deleteBook(id: number): Promise<void> {
+        const result = await this.bookRepository.delete(id)
+        if (result.affected === 0) {
+            throw new NotFoundException(`Task with ID "${id}" not found`)
+        }
     }
 }

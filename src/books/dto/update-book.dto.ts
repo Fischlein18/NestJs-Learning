@@ -1,4 +1,4 @@
-import { Transform, Type } from 'class-transformer'
+import { Type } from 'class-transformer'
 import { IsOptional, IsNotEmpty, IsInt, Matches, IsEnum } from 'class-validator'
 import { BookGenre } from '../book-genre.enum'
 
